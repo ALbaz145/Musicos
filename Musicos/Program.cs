@@ -1,39 +1,43 @@
-﻿
-internal class Program
+﻿class Musico
 {
-    class Musico
-    {
     public string nombre{get; set;}
-    public Musico
+    public Musico()
     {
 
     }
-    public void Saluda() 
+    public void Saluda()
     {
         Console.WriteLine("Hola soy {0}",nombre);
-
     }
     public virtual void Toca()
     {
-        Console.WriteLine($"{Nombre} esta tocando su intrumento");
+        Console.WriteLine($"{nombre} esta tocando su instrumento");
     }
 
 }
 class Bajista:Musico
 {
-    public string bajo {get; set;}
-    public Bajista(string n, string b):base(n)
+    public string bajo {get;set;}
+    public Bajista(string n, string b)
     {
-        bajo = b;
+
     }
     public override void Toca()
     {
-        Console.WriteLine($"{Nombre} tocando su {bajo}")
-    } 
+        Console.WriteLine($"{nombre} esta tocando su {bajo}");
+    }
+
 }
-    
-    private static void Main(string[] args)
+internal class Program
+{
+        private static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        List<Musico> grupo = new List<Musico>();
+        grupo.Add(new Bajista("Joe"));
+        foreach (var m in grupo)
+            m.Saluda();
+        foreach (var m in grupo)
+            m.Toca();
+
     }
 }

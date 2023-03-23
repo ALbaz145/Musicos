@@ -1,43 +1,68 @@
-﻿class Musico
+﻿abstract class Musico     //Las clases abstrctas no pueden hecerse objetos
 {
-    public string nombre{get; set;}
-    public Musico()
-    {
+    public string Nombre {get; set;}
 
-    }
-    public void Saluda()
+    public Musico(string nombre)
     {
-        Console.WriteLine("Hola soy {0}",nombre);
-    }
-    public virtual void Toca()
-    {
-        Console.WriteLine($"{nombre} esta tocando su instrumento");
-    }
+        Nombre = nombre;
+    } 
 
+    public void Saludar()
+    {
+        Console.WriteLine($"Hola, soy {Nombre} ");
+    } 
+    
+
+    /*public virtual void Tocar()
+    {
+        Console.WriteLine($"{Nombre} está tocando su instrumento");
+    } */
+    public abstract void Tocar();      //Metodos abstarctos son heredados obligatoriamente
 }
-class Bajista:Musico
+
+class Baterista:Musico
 {
-    public string bajo {get;set;}
-    public Bajista(string n, string b)
-    {
+    public string Bateria {get; set;}
 
-    }
-    public override void Toca()
+    public Baterista(string nombre, string bateria):base(nombre)
     {
-        Console.WriteLine($"{nombre} esta tocando su {bajo}");
-    }
+        Bateria = bateria;
+    } 
 
+    public override void Tocar()
+    {
+        Console.WriteLine($"{Nombre} está tocando su {Bateria}");
+    } 
 }
-internal class Program
-{
-        private static void Main(string[] args)
-    {
-        List<Musico> grupo = new List<Musico>();
-        grupo.Add(new Bajista("Joe"));
-        foreach (var m in grupo)
-            m.Saluda();
-        foreach (var m in grupo)
-            m.Toca();
 
+class Bajista:Musico 
+{
+    public string Bajo {get; set;}
+
+    public Bajista(string nombre, string bajo):base(nombre)
+    {
+        Bajo = bajo;
+    } 
+
+    public override void Tocar()
+    {
+        Console.WriteLine($"Hola soy{Nombre} y soy bajista");
+    } 
+   
+}
+
+class Program
+{
+    static void Main()
+    {
+       List<Musico> Metallica = new List<Musico>();
+
+       /*Metallica.Add(new Musico("James Hetfield"));*/
+       Metallica.Add(new Bajista("Chango", "Ibanez"));
+       Metallica.Add(new Baterista("Lars Ulrich", "Tama")); 
+       
+       foreach(var m in Metallica) m.Saludar();
+                  
+       foreach(var m in Metallica) m.Tocar(); //esto se llama Polimorfismo
     }
 }
